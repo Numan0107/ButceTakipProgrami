@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "OVGo96SuggY=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Numan\\ButceTakipProgrami\\ButceTakipProgrami.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Numan\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.11\\microsoft.aspnetcore.app.internal.assets.10.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,121 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<div class="container mt-4" style="max-width: 800px; font-family: sans-serif;">
+    <h2 class="text-center mb-4">💰 Kişisel Gelir-Gider Takip Programı</h2>
+
+    <!-- ÖZET KARTLARI -->
+    <div class="row text-center mb-4">
+        <div class="col-md-4">
+            <div class="p-3 bg-light border rounded shadow-sm">
+                <h5>📊 Toplam Gelir</h5>
+                <h3 class="text-success">@ToplamGelir.ToString("C2")</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 bg-light border rounded shadow-sm">
+                <h5>📉 Toplam Gider</h5>
+                <h3 class="text-danger">@ToplamGider.ToString("C2")</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border rounded shadow-sm @(NetKasa >= 0 ? "bg-success text-white" : "bg-danger text-white")">
+                <h5>💼 Net Kasa (Bakiye)</h5>
+                <h3>@NetKasa.ToString("C2")</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- YENİ İŞLEM EKLEME FORMU -->
+    <div class="card p-4 mb-4 shadow-sm">
+        <h4 class="mb-3">➕ Yeni Gelir / Gider Ekle</h4>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="İşlem Tanımı (Örn: Maaş, Kira)" @bind="yeniIslem.Tanim" />
+            </div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" placeholder="Miktar (TL)" @bind="yeniIslem.Miktar" />
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" @bind="yeniIslem.Tur">
+                    <option value="Gider">📉 Gider</option>
+                    <option value="Gelir">🟢 Gelir</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100" @onclick="IslemEkle">Ekle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- İŞLEM GEÇMİŞİ LİSTESİ -->
+    <div class="card p-4 shadow-sm">
+        <h4 class="mb-3">📜 İşlem Geçmişi</h4>
+        @if (Islemler.Count == 0)
+        {
+            <p class="text-muted text-center">Henüz bir işlem eklenmedi.</p>
+        }
+        else
+        {
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Tanım</th>
+                        <th>Tür</th>
+                        <th>Miktar</th>
+                        <th>Tarih</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var islem in Islemler)
+                    {
+                        <tr>
+                            <td>@islem.Tanim</td>
+                            <td>
+                                <span class="badge @(islem.Tur == "Gelir" ? "bg-success" : "bg-danger")">
+                                    @(islem.Tur == "Gelir" ? "Gelir" : "Gider")
+                                </span>
+                            </td>
+                            <td class="@(islem.Tur == "Gelir" ? "text-success" : "text-danger") fw-bold">
+                                @(islem.Tur == "Gelir" ? "+" : "-") @islem.Miktar.ToString("C2")
+                            </td>
+                            <td>@islem.Tarih.ToString("dd.MM.yyyy")</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-danger" @onclick="() => IslemSil(islem.Id)">❌ Sil</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@code {
+    private List<Islem> Islemler = new List<Islem>();
+    private Islem yeniIslem = new Islem();
+    private int idSayac = 1;
+
+    // Hesaplama Motoru (Anlık Değişir)
+    private decimal ToplamGelir => Islemler.Where(i => i.Tur == "Gelir").Sum(i => i.Miktar);
+    private decimal ToplamGider => Islemler.Where(i => i.Tur == "Gider").Sum(i => i.Miktar);
+    private decimal NetKasa => ToplamGelir - ToplamGider;
+
+    private void IslemEkle()
+    {
+        if (string.IsNullOrWhiteSpace(yeniIslem.Tanim) || yeniIslem.Miktar <= 0) return;
+
+        yeniIslem.Id = idSayac++;
+        yeniIslem.Tarih = DateTime.Now;
+        
+        Islemler.Add(yeniIslem);
+        yeniIslem = new Islem(); // Formu sıfırla
+    }
+
+    private void IslemSil(int id)
+    {
+        var silinecek = Islemler.FirstOrDefault(i => i.Id == id);
+        if (silinecek != null) Islemler.Remove(silinecek);
+    }
+}
