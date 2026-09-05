@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ButceTakipProgrami")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e894d0143309d6800a470c54420cf7d8e2b644e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ButceTakipProgrami")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ButceTakipProgrami")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

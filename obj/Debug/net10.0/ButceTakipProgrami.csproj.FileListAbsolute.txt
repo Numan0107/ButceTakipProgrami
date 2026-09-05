@@ -83,3 +83,4 @@ C:\Users\Numan\ButceTakipProgrami\obj\Debug\net10.0\refint\ButceTakipProgrami.dl
 C:\Users\Numan\ButceTakipProgrami\obj\Debug\net10.0\ButceTakipProgrami.pdb
 C:\Users\Numan\ButceTakipProgrami\obj\Debug\net10.0\ButceTakipProgrami.genruntimeconfig.cache
 C:\Users\Numan\ButceTakipProgrami\obj\Debug\net10.0\ref\ButceTakipProgrami.dll
+C:\Users\Numan\ButceTakipProgrami\obj\Debug\net10.0\ButceTakipProgrami.sourcelink.json

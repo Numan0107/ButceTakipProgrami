@@ -4,7 +4,7 @@
 <div class="container mt-4" style="max-width: 800px; font-family: sans-serif;">
     <h2 class="text-center mb-4">💰 Kişisel Gelir-Gider Takip Programı</h2>
 
-    <!-- ÖZET KARTLARI -->
+
     <div class="row text-center mb-4">
         <div class="col-md-4">
             <div class="p-3 bg-light border rounded shadow-sm">
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <!-- YENİ İŞLEM EKLEME FORMU -->
+   
     <div class="card p-4 mb-4 shadow-sm">
         <h4 class="mb-3">➕ Yeni Gelir / Gider Ekle</h4>
         <div class="row g-3">
@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <!-- İŞLEM GEÇMİŞİ LİSTESİ -->
+    
     <div class="card p-4 shadow-sm">
         <h4 class="mb-3">📜 İşlem Geçmişi</h4>
         @if (Islemler.Count == 0)
@@ -97,7 +97,7 @@
     private Islem yeniIslem = new Islem();
     private int idSayac = 1;
 
-    // Hesaplama Motoru (Anlık Değişir)
+    
     private decimal ToplamGelir => Islemler.Where(i => i.Tur == "Gelir").Sum(i => i.Miktar);
     private decimal ToplamGider => Islemler.Where(i => i.Tur == "Gider").Sum(i => i.Miktar);
     private decimal NetKasa => ToplamGelir - ToplamGider;
@@ -110,7 +110,7 @@
         yeniIslem.Tarih = DateTime.Now;
         
         Islemler.Add(yeniIslem);
-        yeniIslem = new Islem(); // Formu sıfırla
+        yeniIslem = new Islem(); 
     }
 
     private void IslemSil(int id)
